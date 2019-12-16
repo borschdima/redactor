@@ -1,0 +1,132 @@
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Arial;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.list__item {
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #e4e5e9;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-weight: bold;
+    color: #333;
+}
+
+.list__item.first {
+    background-color: #00c097;
+    color: #fff;
+}
+
+.list__item span {
+    color: red;
+    font-size: 1.8em;
+    cursor: pointer;
+    font-weight: 100;
+    line-height: 0;
+}
+
+.list__item span:hover {
+    color: #f7b5b5;
+    font-size: 1.8em;
+    cursor: pointer;
+    -webkit-transition: 0.4s ease;
+    -o-transition: 0.4s ease;
+    transition: 0.4s ease;
+}
+
+.btn {
+    background-color: #00c097;
+    width: 60%;
+    padding: 10px;
+    margin: 5px;
+    float: right;
+    border: none;
+    margin-top: 10px;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 100;
+    cursor: pointer;
+    border: 1px solid transparent;
+    outline: none;
+}
+
+.btn:hover {
+    -webkit-transition: 0.4s ease;
+    -o-transition: 0.4s ease;
+    transition: 0.4s ease;
+    background-color: #fff;
+    color: #00c097;
+    border: 1px solid #00c097;
+}
+
+#map {
+    width: 80%;
+    height: 100%;
+    margin-left: 20%;
+    padding: 0;
+    display: block;
+}
+
+#leftPanel {
+    width: 20%;
+    height: 100%;
+    margin: 0;
+    padding: 0 15px;
+    float: left;
+
+    display: -webkit-box;
+
+    display: -ms-flexbox;
+
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+#districtName {
+    border: 1px solid #00c097;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 1em;
+    outline: none;
+    margin-top: 5px;
+}
+
+.validation-error {
+    margin: 10px 0;
+    color: red;
+    display: none;
+}
