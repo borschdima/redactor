@@ -136,3 +136,21 @@ body {
     color: red;
     display: none;
 }
+
+#load {
+    position: relative;
+    text-align: center;
+}
+#file {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.load-text {
+    text-align: center;
+}

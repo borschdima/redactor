@@ -1,6 +1,8 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
 	const btnCreate = document.querySelector("#createPoligone");
 	const btnSend = document.querySelector("#sendtoDB");
+	const loadText = document.querySelector(".load-text");
+	const file = document.querySelector("#file");
 	const list = document.querySelector(".list");
 	const districtName = document.querySelector("#districtName");
 	const error = document.querySelector(".validation-error");
@@ -27,10 +29,11 @@
 
 			// Береме все полигоны и формируем массив данных
 			myMap.geoObjects.each(geoObject => {
-				const coordinates = geoObject.geometry.getCoordinates();
+				let coordinates = geoObject.geometry.getCoordinates()[0];
 				const name = geoObject.options.get("name");
-				if (coordinates[0].length !== 0) {
-					data.push({ name, coordinates: coordinates[0] });
+				if (coordinates.length !== 0) {
+					coordinates.pop();
+					data.push({ name, coordinates: coordinates });
 				}
 			});
 			if (data.length > 0) {
@@ -59,8 +62,7 @@
 						// Цвет обводки.
 						strokeColor: "#0000FF",
 						// Ширина обводки.
-						strokeWidth: 2,
-						name: "Haha"
+						strokeWidth: 2
 					}
 				);
 				// Добавляем многоугольник на карту.
@@ -93,7 +95,7 @@
 			error.style.display = "none";
 		});
 
-		// Удаление соответствующего олигона
+		// Удаление соответствующего полигона
 		list.addEventListener("click", e => {
 			const target = e.target;
 			const targetClass = target.classList;
@@ -132,6 +134,51 @@
 				});
 			}
 		});
+
+		// Загрузка данных из файла
+		file.addEventListener("change", () => {
+			readFile(document.getElementById("file"));
+			const lastSlashIndex = file.value.lastIndexOf("\\");
+			const fileName = file.value.slice(lastSlashIndex + 1);
+			loadText.textContent = fileName;
+		});
+
+		function readFile(object) {
+			var file = object.files[0];
+			var reader = new FileReader();
+			reader.onload = function() {
+				const data = JSON.parse(reader.result);
+				loadFromFile(data);
+			};
+			reader.readAsText(file);
+		}
+
+		const loadFromFile = data => {
+			data.forEach(pol => {
+				const myPolygon = new ymaps.Polygon(
+					[pol.coordinates],
+					{},
+					{
+						// Курсор в режиме добавления новых вершин.
+						editorDrawingCursor: "crosshair",
+						// Максимально допустимое количество вершин.
+						editorMaxPoints: 300,
+						// Цвет заливки.
+						fillColor: "#00FF00",
+						opacity: 0.3,
+						// Цвет обводки.
+						strokeColor: "#0000FF",
+						// Ширина обводки.
+						strokeWidth: 2,
+						name: pol.name
+					}
+				);
+				// Добавляем многоугольник на карту.
+				myMap.geoObjects.add(myPolygon);
+				list.insertAdjacentHTML("beforeend", `<li class="list__item">${pol.name}<span class="remove">&times;</span></li>`);
+			});
+			file.value = "";
+		};
 	}
 
 	// Загружаем файл с данными на компьютер
