@@ -15,8 +15,7 @@
 			{
 				center: [48.015884, 37.802849],
 				zoom: 13,
-				controls: ["zoomControl", "searchControl"],
-				behaviors: ["drag"]
+				controls: ["zoomControl", "searchControl"]
 			},
 			{
 				searchControlProvider: "yandex#search"
@@ -175,6 +174,15 @@
 				);
 				// Добавляем многоугольник на карту.
 				myMap.geoObjects.add(myPolygon);
+				// В режиме добавления новых вершин меняем цвет обводки многоугольника.
+				var stateMonitor = new ymaps.Monitor(myPolygon.editor.state);
+				stateMonitor.add("drawing", function(newValue) {
+					myPolygon.options.set("strokeColor", newValue ? "#FF0000" : "#0000FF");
+				});
+
+				// Включаем режим редактирования .
+				myPolygon.editor.startEditing();
+
 				list.insertAdjacentHTML("beforeend", `<li class="list__item">${pol.name}<span class="remove">&times;</span></li>`);
 			});
 			file.value = "";
